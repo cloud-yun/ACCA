@@ -606,7 +606,7 @@
                                     <av:PointCollection x:Key="ConnectorLocation">320,813.333333333333 320,901.38</av:PointCollection>
                                   </scg:Dictionary>
                                 </sap:WorkflowViewStateService.ViewState>
-                                <Sequence DisplayName="Organize traning dataset" sap:VirtualizedContainerService.HintSize="697.333333333333,3887.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                                <Sequence DisplayName="Organize traning dataset" sap:VirtualizedContainerService.HintSize="200,66.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_18">
                                   <Sequence.Variables>
                                     <Variable x:TypeArguments="x:String" Name="DataFolder" />
                                     <Variable x:TypeArguments="s:String[]" Name="AllCsvFiles" />
