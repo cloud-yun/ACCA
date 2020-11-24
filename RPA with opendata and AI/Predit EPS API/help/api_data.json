@@ -1,0 +1,237 @@
+[
+  {
+    "type": "post",
+    "url": "/inference",
+    "title": "inference",
+    "version": "1.0.0",
+    "name": "inference",
+    "group": "Main",
+    "description": "<p>呼叫機器學習進行上市公司年度EPS的推測</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "YearMonth",
+            "description": "<p>資料年月</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "CompanyCode",
+            "description": "<p>公司代號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "CompanyName",
+            "description": "<p>公司名稱</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Category",
+            "description": "<p>產業別</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "ThisMonthRevenue",
+            "description": "<p>營業收入-當月營收</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "PreviousMonthRevenue",
+            "description": "<p>營業收入-上月營收</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "ThisMonthRevenueOfLastYear",
+            "description": "<p>營業收入-去年當月營收</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "RevenueGrowthRateFromLastMonth",
+            "description": "<p>營業收入-上月比較增減(%)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "RevenueGrowthRateInTheSameMonthLastYear",
+            "description": "<p>營業收入-去年同月增減(%)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "CumulativeRevenues",
+            "description": "<p>累計營業收入-當月累計營收</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "CumulativeRevenuesLastYear",
+            "description": "<p>累計營業收入-去年累計營收</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "GrowthRateOfCumulativeRevenues",
+            "description": "<p>累計營業收入-前期比較增減(%)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "CapitalStock",
+            "description": "<p>實收資本額</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Body(Example):",
+          "content": "[\n    {\n        \"YearMonth\": \"109/10\",\n        \"CompanyCode\": \"1101\",\n        \"CompanyName\": \"台泥\",\n        \"Category\": \"水泥工業\",\n        \"ThisMonthRevenue\": 10293900,\n        \"PreviousMonthRevenue\": 9745147,\n        \"ThisMonthRevenueOfLastYear\": 11211942,\n        \"RevenueGrowthRateFromLastMonth\": 5.631038710857825,\n        \"RevenueGrowthRateInTheSameMonthLastYear\": -8.188073038551217,\n        \"CumulativeRevenues\": 92542392,\n        \"CumulativeRevenuesLastYear\": 98773809,\n        \"GrowthRateOfCumulativeRevenues\": -6.308774626682666,\n        \"CapitalStock\": 59414007210\n    },\n    {\n        \"YearMonth\": \"109/10\",\n        \"CompanyCode\": \"1102\",\n        \"CompanyName\": \"亞泥\",\n        \"Category\": \"水泥工業\",\n        \"ThisMonthRevenue\": 7433331,\n        \"PreviousMonthRevenue\": 7256519,\n        \"ThisMonthRevenueOfLastYear\": 7016219,\n        \"RevenueGrowthRateFromLastMonth\": 2.436595287630336,\n        \"RevenueGrowthRateInTheSameMonthLastYear\": 5.944968365440133,\n        \"CumulativeRevenues\": 61997504,\n        \"CumulativeRevenuesLastYear\": 73225486,\n        \"GrowthRateOfCumulativeRevenues\": -15.333434591338868,\n        \"CapitalStock\": 33614471980\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "YearMonth",
+            "description": "<p>資料年月</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "CompanyCode",
+            "description": "<p>公司代號</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "CompanyName",
+            "description": "<p>公司名稱</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "Category",
+            "description": "<p>產業別</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "ThisMonthRevenue",
+            "description": "<p>營業收入-當月營收</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "PreviousMonthRevenue",
+            "description": "<p>營業收入-上月營收</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "ThisMonthRevenueOfLastYear",
+            "description": "<p>營業收入-去年當月營收</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "RevenueGrowthRateFromLastMonth",
+            "description": "<p>營業收入-上月比較增減(%)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "RevenueGrowthRateInTheSameMonthLastYear",
+            "description": "<p>營業收入-去年同月增減(%)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "CumulativeRevenues",
+            "description": "<p>累計營業收入-當月累計營收</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "CumulativeRevenuesLastYear",
+            "description": "<p>累計營業收入-去年累計營收</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "GrowthRateOfCumulativeRevenues",
+            "description": "<p>累計營業收入-前期比較增減(%)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "CapitalStock",
+            "description": "<p>實收資本額</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "EPS",
+            "description": "<p>年度EPS</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response(Example):",
+          "content": "HTTP/1.1 200 OK\n[\n    {\n        \"YearMonth\": \"109/10\",\n        \"CompanyCode\": \"1101\",\n        \"CompanyName\": \"台泥\",\n        \"Category\": \"水泥工業\",\n        \"ThisMonthRevenue\": 10293900,\n        \"PreviousMonthRevenue\": 9745147,\n        \"ThisMonthRevenueOfLastYear\": 11211942,\n        \"RevenueGrowthRateFromLastMonth\": 5.631038710857825,\n        \"RevenueGrowthRateInTheSameMonthLastYear\": -8.188073038551217,\n        \"CumulativeRevenues\": 92542392,\n        \"CumulativeRevenuesLastYear\": 98773809,\n        \"GrowthRateOfCumulativeRevenues\": -6.308774626682666,\n        \"CapitalStock\": 59414007210,\n        \"EPS\": 3.5303080081939697\n    },\n    {\n        \"YearMonth\": \"109/10\",\n        \"CompanyCode\": \"1102\",\n        \"CompanyName\": \"亞泥\",\n        \"Category\": \"水泥工業\",\n        \"ThisMonthRevenue\": 7433331,\n        \"PreviousMonthRevenue\": 7256519,\n        \"ThisMonthRevenueOfLastYear\": 7016219,\n        \"RevenueGrowthRateFromLastMonth\": 2.436595287630336,\n        \"RevenueGrowthRateInTheSameMonthLastYear\": 5.944968365440133,\n        \"CumulativeRevenues\": 61997504,\n        \"CumulativeRevenuesLastYear\": 73225486,\n        \"GrowthRateOfCumulativeRevenues\": -15.333434591338868,\n        \"CapitalStock\": 33614471980,\n        \"EPS\": 3.087939500808716\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response(Example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n    \"error\": \"error message.\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./api.py",
+    "groupTitle": "Main"
+  }
+]

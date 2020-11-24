@@ -2,6 +2,8 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 from flask_cors import CORS, cross_origin
+from flask_apidoc import ApiDoc
+
 import datetime
 import time
 import hashlib
@@ -12,6 +14,7 @@ import inference as main
 
 app = Flask(__name__)
 cors = CORS(app)
+doc = ApiDoc(app=app)
 
 ####### PUT YOUR INFORMATION HERE #######
 TEAM_NAME = 'ACCA'                  #
@@ -43,15 +46,126 @@ def healthcheck():
 @app.route('/inference', methods=['POST'])
 @cross_origin(origin='*')
 def inference():
-    """ API that return image base64 string when web calls this API """
-    data = request.get_json(force=True) 
+    """ 
+    @api {post} /inference  inference
+    @apiVersion 1.0.0
+    @apiName inference
+    @apiGroup Main
 
-    t = datetime.datetime.now()
-    ts = str(int(t.utcnow().timestamp()))
-    server_uuid = generate_server_uuid(TEAM_NAME+ts)
+    @apiDescription 呼叫機器學習進行上市公司年度EPS的推測
+
+
+    @apiParam {String} YearMonth 資料年月
+    @apiParam {String} CompanyCode 公司代號
+    @apiParam {String} CompanyName 公司名稱
+    @apiParam {String} Category 產業別
+    @apiParam {Number} ThisMonthRevenue 營業收入-當月營收
+    @apiParam {Number} PreviousMonthRevenue 營業收入-上月營收
+    @apiParam {Number} ThisMonthRevenueOfLastYear 營業收入-去年當月營收
+    @apiParam {Number} RevenueGrowthRateFromLastMonth 營業收入-上月比較增減(%)
+    @apiParam {Number} RevenueGrowthRateInTheSameMonthLastYear 營業收入-去年同月增減(%)
+    @apiParam {Number} CumulativeRevenues 累計營業收入-當月累計營收
+    @apiParam {Number} CumulativeRevenuesLastYear 累計營業收入-去年累計營收
+    @apiParam {Number} GrowthRateOfCumulativeRevenues 累計營業收入-前期比較增減(%)
+    @apiParam {Number} CapitalStock 實收資本額
+
+    @apiParamExample {json} Request-Body(Example):
+    [
+        {
+            "YearMonth": "109/10",
+            "CompanyCode": "1101",
+            "CompanyName": "台泥",
+            "Category": "水泥工業",
+            "ThisMonthRevenue": 10293900,
+            "PreviousMonthRevenue": 9745147,
+            "ThisMonthRevenueOfLastYear": 11211942,
+            "RevenueGrowthRateFromLastMonth": 5.631038710857825,
+            "RevenueGrowthRateInTheSameMonthLastYear": -8.188073038551217,
+            "CumulativeRevenues": 92542392,
+            "CumulativeRevenuesLastYear": 98773809,
+            "GrowthRateOfCumulativeRevenues": -6.308774626682666,
+            "CapitalStock": 59414007210
+        },
+        {
+            "YearMonth": "109/10",
+            "CompanyCode": "1102",
+            "CompanyName": "亞泥",
+            "Category": "水泥工業",
+            "ThisMonthRevenue": 7433331,
+            "PreviousMonthRevenue": 7256519,
+            "ThisMonthRevenueOfLastYear": 7016219,
+            "RevenueGrowthRateFromLastMonth": 2.436595287630336,
+            "RevenueGrowthRateInTheSameMonthLastYear": 5.944968365440133,
+            "CumulativeRevenues": 61997504,
+            "CumulativeRevenuesLastYear": 73225486,
+            "GrowthRateOfCumulativeRevenues": -15.333434591338868,
+            "CapitalStock": 33614471980
+        }
+    ]
+
+    @apiSuccess {String} YearMonth 資料年月
+    @apiSuccess {String} CompanyCode 公司代號
+    @apiSuccess {String} CompanyName 公司名稱
+    @apiSuccess {String} Category 產業別
+    @apiSuccess {Number} ThisMonthRevenue 營業收入-當月營收
+    @apiSuccess {Number} PreviousMonthRevenue 營業收入-上月營收
+    @apiSuccess {Number} ThisMonthRevenueOfLastYear 營業收入-去年當月營收
+    @apiSuccess {Number} RevenueGrowthRateFromLastMonth 營業收入-上月比較增減(%)
+    @apiSuccess {Number} RevenueGrowthRateInTheSameMonthLastYear 營業收入-去年同月增減(%)
+    @apiSuccess {Number} CumulativeRevenues 累計營業收入-當月累計營收
+    @apiSuccess {Number} CumulativeRevenuesLastYear 累計營業收入-去年累計營收
+    @apiSuccess {Number} GrowthRateOfCumulativeRevenues 累計營業收入-前期比較增減(%)
+    @apiSuccess {Number} CapitalStock 實收資本額
+    @apiSuccess {Number} EPS 年度EPS
+
+    @apiSuccessExample {json} Success-Response(Example):
+    HTTP/1.1 200 OK
+    [
+        {
+            "YearMonth": "109/10",
+            "CompanyCode": "1101",
+            "CompanyName": "台泥",
+            "Category": "水泥工業",
+            "ThisMonthRevenue": 10293900,
+            "PreviousMonthRevenue": 9745147,
+            "ThisMonthRevenueOfLastYear": 11211942,
+            "RevenueGrowthRateFromLastMonth": 5.631038710857825,
+            "RevenueGrowthRateInTheSameMonthLastYear": -8.188073038551217,
+            "CumulativeRevenues": 92542392,
+            "CumulativeRevenuesLastYear": 98773809,
+            "GrowthRateOfCumulativeRevenues": -6.308774626682666,
+            "CapitalStock": 59414007210,
+            "EPS": 3.5303080081939697
+        },
+        {
+            "YearMonth": "109/10",
+            "CompanyCode": "1102",
+            "CompanyName": "亞泥",
+            "Category": "水泥工業",
+            "ThisMonthRevenue": 7433331,
+            "PreviousMonthRevenue": 7256519,
+            "ThisMonthRevenueOfLastYear": 7016219,
+            "RevenueGrowthRateFromLastMonth": 2.436595287630336,
+            "RevenueGrowthRateInTheSameMonthLastYear": 5.944968365440133,
+            "CumulativeRevenues": 61997504,
+            "CumulativeRevenuesLastYear": 73225486,
+            "GrowthRateOfCumulativeRevenues": -15.333434591338868,
+            "CapitalStock": 33614471980,
+            "EPS": 3.087939500808716
+        }
+    ]
+
+    @apiErrorExample {json} Error-Response(Example):
+    HTTP/1.1 400 Bad Request
+    {
+        "error": "error message."
+    }   
+    """
 
     
     try:
+        data = request.get_json(force=True) 
+
         print('start transferring...')
         start = time.time()
 
@@ -68,11 +182,15 @@ def inference():
 
         print('total run time: ' , time.time() - start)
 
-    except:
-        raise ValueError('Model error.')
-    server_timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        return jsonify( answer)
 
-    return jsonify( answer)
+    except Exception as e:
+        print('error:' , str(e))
+        return jsonify({'error': e.args[0] }) , 400
+        #raise ValueError('Model error.')
+    #server_timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    #return jsonify( answer)
     # return jsonify({'server_uuid': server_uuid, 'result': answer, 'server_timestamp': server_timestamp, 'client_uuid': data['client_uuid']})
 
 
